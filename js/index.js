@@ -28,6 +28,7 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
         this.receivedEvent('deviceready');
+	
     },
 
     // Update DOM on a Received Event
@@ -38,9 +39,23 @@ var app = {
 
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
-
+	document.getElementById("captura").addEventListener("click",this.makeScreenshot);
         console.log('Received Event: ' + id);
-    }
+    },
+ 
+    makeScreenshot: function() {
+	console.log('ok en la funcion');
+    	navigator.screenshot.save(function(error,res){
+	  if(error){
+	    console.error(error);
+	  }else{
+	    console.log('ok',res.filePath); //should be path/to/myScreenshot.jpg
+	    document.getElementById("demo").innerHTML = "Imagen guardada en Pictures"; 
+	  }
+    });
+   
+   }
+
 };
 
 app.initialize();
